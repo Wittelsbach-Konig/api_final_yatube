@@ -81,7 +81,66 @@ python manage.py runserver
 ```
 http://127.0.0.1:8000/redoc/
 ```
-## Example API requests:
+## Some examples:
+### Getting post list
+- Get a list of all posts. When specifying the limit and offset parameters, the output must work with pagination.
 
-- Get a list of all publications. When specifying the limit and offset parameters, the output must work with pagination.
+```
+http://127.0.0.1:8000/api/v1/posts/?limit=100&offset=400
+```
+Response:
+
+```json
+{
+  "count": 123,
+  "next": "http://api.example.org/accounts/?offset=400&limit=100",
+  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+  "results": [
+    {
+      "id": 0,
+      "author": "string",
+      "text": "string",
+      "pub_date": "2021-10-14T20:41:29.648Z",
+      "image": "string",
+      "group": 0
+    }
+  ]
+}
+```
+### Post creation
+Adding a new post to the collection of postss. Anonymous requests are prohibited.
+POST-request:
+
+```
+http://127.0.0.1:8000/api/v1/posts/
+```
+
+Body:
+
+```json
+{
+  "text": "string",
+  "image": "string",
+  "group": 0
+}
+```
+
+Response:
+
+```json
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2019-08-24T14:15:22Z",
+  "image": "string",
+  "group": 0
+}
+```
+
+
+
+
+
+
 
