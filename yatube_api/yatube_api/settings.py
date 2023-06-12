@@ -119,6 +119,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TOKEN_LIFE_TIME = 5
 
 SIMPLE_JWT = {
-   'ACCESS_TOKEN_LIFETIME': timedelta(days=TOKEN_LIFE_TIME),
-   'AUTH_HEADER_TYPES': ('Bearer',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=TOKEN_LIFE_TIME),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
