@@ -50,6 +50,7 @@ class Post(models.Model):
     image = models.ImageField(
         'Картинка',
         upload_to='posts/',
+        null=True,
         blank=True
     )
     group = models.ForeignKey(
@@ -116,16 +117,6 @@ class Follow(models.Model):
     class Meta:
         verbose_name = 'Подписку'
         verbose_name_plural = 'Подписки'
-        constraints = (
-            models.UniqueConstraint(
-                name='unique_relationships',
-                fields=('user', 'following'),
-            ),
-            models.CheckConstraint(
-                name='prevent_self_follow',
-                check=~models.Q(user=models.F('following')),
-            )
-        )
 
     def __str__(self) -> str:
         return (
