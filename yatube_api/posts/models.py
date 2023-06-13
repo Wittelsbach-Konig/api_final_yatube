@@ -81,12 +81,23 @@ class Comment(models.Model):
     """
 
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='comments')
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name='Автор'
+    )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments')
-    text = models.TextField()
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name='Пост'
+    )
+    text = models.TextField('Текст')
     created = models.DateTimeField(
-        'Дата добавления', auto_now_add=True, db_index=True)
+        'Дата добавления',
+        auto_now_add=True,
+        db_index=True
+    )
 
     class Meta:
         verbose_name = 'Комментарий'
@@ -106,17 +117,29 @@ class Follow(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="follower"
+        related_name="follower",
+        verbose_name='Подписчик'
     )
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="following"
+        related_name="following",
+        verbose_name='Отслеживаемый'
     )
 
     class Meta:
         verbose_name = 'Подписку'
         verbose_name_plural = 'Подписки'
+        constraints = (
+            models.UniqueConstraint(
+                name='unique_relationships',
+                fields=('user', 'following'),
+            ),
+            models.CheckConstraint(
+                name='prevent_self_follow',
+                check=~models.Q(user=models.F('following'))
+            ),
+        )
 
     def __str__(self) -> str:
         return (

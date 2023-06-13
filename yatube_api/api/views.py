@@ -1,10 +1,13 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import filters, mixins, permissions, viewsets
+from rest_framework import filters, permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
 from posts.models import Group, Post
+from core.views import ListAndCreateModelMixin
 from .permissions import AuthorOrReadOnly
-from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
+from .serializers import (CommentSerializer,
+                          FollowSerializer,
+                          GroupSerializer,
                           PostSerializer)
 
 
@@ -25,7 +28,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -50,10 +53,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(viewsets.GenericViewSet,
-                    mixins.CreateModelMixin,
-                    mixins.ListModelMixin,
-                    ):
+class FollowViewSet(ListAndCreateModelMixin):
     """ВьюСет для Подписок."""
 
     serializer_class = FollowSerializer

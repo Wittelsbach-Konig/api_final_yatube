@@ -32,7 +32,11 @@ class CommentSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        fields = ('id', 'author', 'post', 'text', 'created')
+        fields = ('id',
+                  'author',
+                  'post',
+                  'text',
+                  'created')
         model = Comment
         read_only_fields = ('post',)
 
@@ -41,7 +45,10 @@ class GroupSerializer(serializers.ModelSerializer):
     """Сериалайзер для модели групп."""
 
     class Meta:
-        fields = ('id', 'title', 'slug', 'description')
+        fields = ('id',
+                  'title',
+                  'slug',
+                  'description')
         model = Group
 
 
@@ -54,12 +61,13 @@ class FollowSerializer(serializers.ModelSerializer):
     )
     user = serializers.SlugRelatedField(
         slug_field='username',
-        queryset=User.objects.all(),
+        read_only=True,
         default=serializers.CurrentUserDefault(),
     )
 
     class Meta:
-        fields = ('user', 'following')
+        fields = ('user',
+                  'following')
         model = Follow
         validators = [
             UniqueTogetherValidator(
@@ -69,7 +77,7 @@ class FollowSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        if self.context['request'].user == data['following']:
+        if self.context.get('request').user == data['following']:
             raise serializers.ValidationError(
                 'Нельзя подписываться на себя!'
             )
