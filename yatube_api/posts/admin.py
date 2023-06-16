@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Comment, Follow, Group, Post
+from .forms import FollowForm
 
 MAX_MESS_SIZE = 30  # Максимальный размер выводимого текста, при создании поста
 
@@ -57,7 +58,7 @@ class CommentAdmin(admin.ModelAdmin):
     Класс подписка-админ
     Интерфейс администратора для списка подписок.
     """
-
+    form = FollowForm
     list_display = ('pk',
                     'post',
                     'author',

@@ -9,5 +9,4 @@ class ListAndCreateModelMixin(viewsets.GenericViewSet,
     Доступные запросы: GET, POST.
     """
 
-    class Meta:
-        abstract = True
+    pass
