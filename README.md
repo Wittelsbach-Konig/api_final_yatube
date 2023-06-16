@@ -1,5 +1,12 @@
 # [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=841DF7&center=true&vCenter=true&width=435&lines=API+for+YaTube+project)](https://git.io/typing-svg)
 
+## Author:
+
+*Kiryushin Vitaliy*
+
+email:
+kiryuschin.vitalij@yandex.ru
+
 ## Description:
 
   The project is an API for the Yatube project. This interface can work with mobile apps, chatbots and frontend. 
@@ -78,9 +85,21 @@ python manage.py runserver
 
 ## API Documentation
 
+Full documentation (redoc.yaml) is available at, after you run project.
 ```
 http://127.0.0.1:8000/redoc/
 ```
+File path:
+```
+yatube_api/static/redoc.yaml
+```
+
+## Import your fixture data into database
+To import fixture data into database:
+```shell
+python3 manage.py loadata path/to/your/fixtureFile
+```
+
 ## Some examples:
 ### Getting post list
 - Get a list of all posts. When specifying the limit and offset parameters, the output must work with pagination.
